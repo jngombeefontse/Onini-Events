@@ -1,0 +1,16 @@
+[build]
+  publish = "."
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+
+# Redirection pour forcer www -> apex ou inverse si besoin (décommenter selon le choix DNS)
+# [[redirects]]
+#   from = "https://onini-events.fr/*"
+#   to = "https://www.onini-events.fr/:splat"
+#   status = 301
+#   force = true
