@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onini Events — Organisation de mariage & traiteur à Paris</title>
+<meta name="description" content="Onini Events, agence parisienne d'organisation de mariage, traiteur et événements — France & pays voisins.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EE;
+    --cream-2:#F4EBDA;
+    --ink:#241C15;
+    --terracotta:#B5502E;
+    --terracotta-dark:#8F3D22;
+    --gold:#C9932A;
+    --green:#1F3D2B;
+    --muted:#5B5347;
+    --line: rgba(36,28,21,0.12);
+    --maxw: 1180px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Jost', Arial, sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+  .eyebrow{
+    font-family:'Jost',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.28em;
+    font-size:12px;
+    color:var(--terracotta);
+    font-weight:600;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:15px 30px;
+    border-radius:2px;
+    font-family:'Jost',sans-serif;
+    font-size:14px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    font-weight:500;
+    border:1px solid var(--ink);
+    cursor:pointer;
+    transition:all .25s ease;
+  }
+  .btn-solid{ background:var(--terracotta); border-color:var(--terracotta); color:var(--cream); }
+  .btn-solid:hover{ background:var(--terracotta-dark); border-color:var(--terracotta-dark); }
+  .btn-ghost{ background:transparent; color:var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--cream); }
+
+  /* ---------- Lozenge weave divider (signature motif) ---------- */
+  .weave{
+    display:flex; justify-content:center; align-items:center; gap:0;
+    padding:0;
+    user-select:none;
+  }
+  .weave svg{ height:22px; width:auto; }
+
+  /* ---------- Header ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(251,246,238,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 32px;
+    max-width:var(--maxw); margin:0 auto;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand svg{ height:38px; width:auto; }
+  .brand-text{ font-family:'Fraunces',serif; font-size:19px; letter-spacing:.02em; }
+  .brand-text span{ display:block; font-family:'Jost',sans-serif; font-size:9px; letter-spacing:.3em; color:var(--terracotta); text-transform:uppercase; margin-top:2px;}
+  nav.links{ display:flex; gap:34px; font-size:14px; letter-spacing:.03em; }
+  nav.links a{ position:relative; padding-bottom:4px; }
+  nav.links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--terracotta);
+    transition:width .25s ease;
+  }
+  nav.links a:hover::after{ width:100%; }
+  .nav-cta{ display:flex; align-items:center; gap:18px; }
+  .burger{ display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; }
+  .burger span{ width:24px; height:2px; background:var(--ink); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:172px 0 90px;
+    position:relative;
+    background:
+      radial-gradient(ellipse at 85% 8%, rgba(201,147,42,.18), transparent 55%),
+      radial-gradient(ellipse at 8% 90%, rgba(181,80,46,.12), transparent 55%);
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr .85fr; gap:60px; align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(40px, 5.6vw, 74px);
+    line-height:1.04;
+    margin:20px 0 26px;
+  }
+  .hero h1 em{ font-style:italic; color:var(--terracotta); }
+  .hero p.lead{
+    font-size:18px; color:var(--muted); max-width:480px; margin-bottom:38px;
+  }
+  .hero-actions{ display:flex; gap:16px; flex-wrap:wrap; }
+  .hero-visual{
+    position:relative; aspect-ratio:4/5; border-radius:4px;
+    background:
+      linear-gradient(160deg, var(--terracotta) 0%, var(--terracotta-dark) 45%, var(--green) 100%);
+    overflow:hidden;
+    display:flex; align-items:flex-end; padding:28px;
+  }
+  .hero-visual::before{
+    content:''; position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(135deg, rgba(251,246,238,.07) 0 2px, transparent 2px 26px),
+      repeating-linear-gradient(45deg, rgba(251,246,238,.06) 0 2px, transparent 2px 26px);
+  }
+  .hero-visual .tag{
+    position:relative; z-index:2; color:var(--cream);
+    font-family:'Fraunces',serif; font-style:italic; font-size:22px; line-height:1.4;
+  }
+  .hero-visual .tag small{
+    display:block; font-family:'Jost',sans-serif; font-style:normal; font-size:11px;
+    letter-spacing:.25em; text-transform:uppercase; color:rgba(251,246,238,.75); margin-top:10px;
+  }
+
+  section{ padding:110px 0; }
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-head h2{ font-size:clamp(30px,4vw,44px); margin-top:14px; }
+  .section-head p{ color:var(--muted); margin-top:16px; font-size:16px; max-width:520px; }
+  .divider-row{ padding:6px 0 0; }
+
+  /* ---------- About ---------- */
+  .about{ background:var(--cream-2); }
+  .about-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:64px; align-items:center; }
+  .about-figure{
+    aspect-ratio:1/1.05; border-radius:4px; position:relative; overflow:hidden;
+    background:var(--ink);
+  }
+  .about-figure svg{ position:absolute; inset:0; width:100%; height:100%; }
+  .about-copy p{ margin-bottom:18px; color:var(--muted); font-size:16.5px; }
+  .about-copy p strong{ color:var(--ink); font-weight:500; }
+  .stat-row{ display:flex; gap:44px; margin-top:36px; padding-top:32px; border-top:1px solid var(--line); }
+  .stat-row div b{ display:block; font-family:'Fraunces',serif; font-size:32px; color:var(--terracotta); }
+  .stat-row div span{ font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+
+  /* ---------- Services ---------- */
+  .services-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--line); border:1px solid var(--line); }
+  .service-card{
+    background:var(--cream); padding:44px 36px; position:relative;
+    transition:background .3s ease;
+  }
+  .service-card:hover{ background:var(--cream-2); }
+  .service-num{ font-family:'Fraunces',serif; font-style:italic; color:var(--gold); font-size:15px; }
+  .service-card h3{ font-size:25px; margin:18px 0 14px; }
+  .service-card p{ color:var(--muted); font-size:15px; margin-bottom:20px; }
+  .service-card ul{ list-style:none; }
+  .service-card li{ font-size:14px; color:var(--ink); padding:7px 0; border-top:1px solid var(--line); }
+  .service-card li:first-child{ border-top:none; }
+
+  /* ---------- Process ---------- */
+  .process{ background:var(--ink); color:var(--cream); }
+  .process .section-head h2, .process .eyebrow{ color:var(--cream); }
+  .process .eyebrow{ color:var(--gold); }
+  .process .section-head p{ color:rgba(251,246,238,.62); }
+  .process-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:28px; }
+  .step{ border-top:1px solid rgba(251,246,238,.22); padding-top:22px; }
+  .step .n{ font-family:'Fraunces',serif; font-style:italic; font-size:34px; color:var(--gold); }
+  .step h3{ color:var(--cream); font-size:19px; margin:14px 0 10px; }
+  .step p{ color:rgba(251,246,238,.6); font-size:14.5px; }
+
+  /* ---------- Testimonials ---------- */
+  .testi-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:40px; }
+  .testi{ padding-top:22px; border-top:2px solid var(--gold); }
+  .testi p.quote{ font-family:'Fraunces',serif; font-style:italic; font-size:19px; line-height:1.5; margin-bottom:20px; }
+  .testi .who{ font-size:13px; letter-spacing:.05em; color:var(--muted); text-transform:uppercase; }
+
+  /* ---------- Contact ---------- */
+  .contact{ background:var(--green); color:var(--cream); position:relative; overflow:hidden; }
+  .contact::before{
+    content:''; position:absolute; right:-120px; top:-120px; width:420px; height:420px; border-radius:50%;
+    background:radial-gradient(circle, rgba(201,147,42,.25), transparent 70%);
+  }
+  .contact-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:60px; position:relative; z-index:2; }
+  .contact h2{ color:var(--cream); font-size:clamp(30px,4vw,46px); margin-top:14px; }
+  .contact p.lead{ color:rgba(251,246,238,.7); max-width:440px; margin-top:16px; font-size:16.5px; }
+  .contact-card{
+    background:rgba(251,246,238,.06); border:1px solid rgba(251,246,238,.18); border-radius:4px; padding:36px;
+  }
+  .contact-line{ display:flex; align-items:center; gap:16px; padding:16px 0; border-bottom:1px solid rgba(251,246,238,.14); }
+  .contact-line:last-child{ border-bottom:none; }
+  .contact-line .ic{ width:38px; height:38px; border-radius:50%; border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .contact-line b{ display:block; font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); margin-bottom:3px; }
+  .contact-line a, .contact-line span.val{ font-size:16px; }
+  .contact .btn-solid{ margin-top:26px; width:100%; justify-content:center; }
+
+  /* ---------- Footer ---------- */
+  footer{ padding:48px 0 32px; background:var(--ink); color:rgba(251,246,238,.55); }
+  .footer-grid{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
+  footer .brand-text{ color:var(--cream); }
+  footer nav.links a{ color:rgba(251,246,238,.55); font-size:13px; }
+  footer .bottom{ margin-top:34px; padding-top:22px; border-top:1px solid rgba(251,246,238,.12); display:flex; justify-content:space-between; font-size:12px; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- WhatsApp float ---------- */
+  .wa-float{
+    position:fixed; bottom:26px; right:26px; z-index:200;
+    width:58px; height:58px; border-radius:50%;
+    background:var(--terracotta); color:var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 26px rgba(181,80,46,.4);
+    transition:transform .2s ease;
+  }
+  .wa-float:hover{ transform:scale(1.07); }
+
+  /* ---------- Reveal ---------- */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:900px){
+    nav.links{ display:none; }
+    .burger{ display:flex; }
+    .hero-grid, .about-grid, .contact-grid{ grid-template-columns:1fr; }
+    .hero-visual{ order:-1; aspect-ratio:16/10; }
+    .services-grid{ grid-template-columns:1fr; }
+    .process-grid{ grid-template-columns:1fr 1fr; row-gap:34px; }
+    .testi-grid{ grid-template-columns:1fr; gap:34px; }
+    section{ padding:74px 0; }
+    .wrap{ padding:0 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="nav">
+    <a href="#top" class="brand">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="100" cy="100" r="96" fill="#FBF6EE" stroke="#C9932A" stroke-width="2"/>
+        <circle cx="100" cy="100" r="88" fill="none" stroke="#B5502E" stroke-width="1"/>
+        <circle cx="80" cy="82" r="34" fill="none" stroke="#B5502E" stroke-width="9"/>
+        <circle cx="120" cy="82" r="34" fill="none" stroke="#C9932A" stroke-width="9"/>
+        <polygon points="55,146 64,137 73,146 64,155" fill="#C9932A"/>
+        <polygon points="80,146 89,137 98,146 89,155" fill="#B5502E"/>
+        <polygon points="105,146 114,137 123,146 114,155" fill="#1F3D2B"/>
+        <polygon points="130,146 139,137 148,146 139,155" fill="#B5502E"/>
+        <polygon points="155,146 145,137 156,146 145,155" fill="#C9932A"/>
+        <line x1="46" y1="164" x2="154" y2="164" stroke="#C9932A" stroke-width="1"/>
+      </svg>
+      <span class="brand-text">Onini Events<span>Paris</span></span>
+    </a>
+    <nav class="links">
+      <a href="#about">L'agence</a>
+      <a href="#services">Services</a>
+      <a href="#process">Déroulé</a>
+      <a href="#testimonials">Avis</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-solid" href="https://wa.me/33745432685" target="_blank" rel="noopener" style="padding:11px 22px;">WhatsApp</a>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div id="top"></div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Mariage · Traiteur · Réceptions — Paris</span>
+      <h1>L'art de recevoir,<br>pensé pour <em>chaque</em> occasion.</h1>
+      <p class="lead">Onini Events imagine et orchestre vos mariages, réceptions et événements d'entreprise, basée à Paris et présente partout en France ainsi que dans les pays voisins, avec la même exigence de raffinement et le même sens du détail, du premier rendez-vous au dernier invité.</p>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="https://wa.me/33745432685" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+        <a class="btn btn-ghost" href="#services">Voir nos services</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <span class="tag">« Chaque événement porte<br>une intention, nous<br>en faisons une fête. »
+        <small>Onini Events — Paris</small>
+      </span>
+    </div>
+  </div>
+  <div class="wrap weave divider-row" style="margin-top:70px; justify-content:flex-start;" id="weaveRow"></div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap about-grid reveal">
+    <div class="about-figure">
+      <svg viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="420" fill="#241C15"/>
+        <g opacity="0.9">
+          <circle cx="150" cy="150" r="86" fill="none" stroke="#B5502E" stroke-width="14"/>
+          <circle cx="230" cy="150" r="86" fill="none" stroke="#C9932A" stroke-width="14"/>
+        </g>
+        <g transform="translate(60,300)">
+          <polygon points="0,20 20,0 40,20 20,40" fill="#C9932A"/>
+          <polygon points="40,20 60,0 80,20 60,40" fill="#B5502E"/>
+          <polygon points="80,20 100,0 120,20 100,40" fill="#F4EBDA"/>
+          <polygon points="120,20 140,0 160,20 140,40" fill="#B5502E"/>
+          <polygon points="160,20 180,0 200,20 180,40" fill="#C9932A"/>
+          <polygon points="200,20 220,0 240,20 220,40" fill="#F4EBDA"/>
+          <polygon points="240,20 260,0 280,20 260,40" fill="#B5502E"/>
+        </g>
+      </svg>
+    </div>
+    <div class="about-copy">
+      <span class="eyebrow">L'agence</span>
+      <h2>Un savoir-faire francilien, au service de tous vos événements.</h2>
+      <p>Onini Events est née à Paris d'une conviction simple : <strong>une fête réussie est une fête qui raconte une histoire.</strong> Mariages, réceptions privées, événements d'entreprise — chaque projet est pensé sur mesure, avec la même exigence de raffinement et le même sens du détail, de l'idée jusqu'au dernier invité.</p>
+      <p>Nous accompagnons les couples, les familles et les entreprises dans l'organisation complète de leurs événements, à Paris comme partout ailleurs en France et dans les pays voisins : recherche de lieu, décoration, coordination des prestataires et service traiteur, pour des célébrations qui vous ressemblent, quelle que soit leur forme.</p>
+      <div class="stat-row">
+        <div><b>150+</b><span>Événements organisés</span></div>
+        <div><b>3</b><span>Métiers, une même exigence</span></div>
+        <div><b>France</b><span>& pays voisins</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Nos services</span>
+      <h2>Trois métiers, une même exigence.</h2>
+      <p>De la demande en mariage à la dernière bouchée servie, Onini Events conçoit vos événements comme des récits complets — cohérents du premier rendez-vous jusqu'au dernier invité.</p>
+    </div>
+  </div>
+  <div class="wrap reveal">
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-num">01 — Mariages</span>
+        <h3>Organisation de mariage</h3>
+        <p>Wedding planning complet ou coordination du jour J, pour des cérémonies civiles, religieuses ou laïques.</p>
+        <ul>
+          <li>Conception & direction artistique</li>
+          <li>Recherche de lieu & prestataires</li>
+          <li>Décoration & scénographie</li>
+          <li>Rétroplanning & budget</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="service-num">02 — Gastronomie</span>
+        <h3>Traiteur événementiel</h3>
+        <p>Une cuisine soignée et personnalisable, pensée pour marquer les esprits, quel que soit le style de votre événement.</p>
+        <ul>
+          <li>Buffets & menus assis</li>
+          <li>Menus sur mesure & dégustation</li>
+          <li>Cocktails dînatoires</li>
+          <li>Pièce montée & desserts sur mesure</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="service-num">03 — Réceptions</span>
+        <h3>Événements privés & pro</h3>
+        <p>Anniversaires, baptêmes, séminaires ou lancements — la même rigueur d'organisation pour chaque type d'événement.</p>
+        <ul>
+          <li>Événements d'entreprise</li>
+          <li>Baptêmes & anniversaires</li>
+          <li>Soirées de lancement</li>
+          <li>Logistique & régie complète</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Notre déroulé</span>
+      <h2>De la première conversation au grand jour.</h2>
+      <p>Un accompagnement en quatre temps, pensé pour vous libérer du stress d'organisation sans jamais perdre le fil de vos envies.</p>
+    </div>
+    <div class="process-grid reveal">
+      <div class="step">
+        <span class="n">01</span>
+        <h3>Rencontre & écoute</h3>
+        <p>Un échange, en visio ou autour d'un café, pour comprendre votre histoire, vos envies et vos deux cultures à célébrer.</p>
+      </div>
+      <div class="step">
+        <span class="n">02</span>
+        <h3>Concept & devis</h3>
+        <p>Nous vous proposons une direction artistique, un budget détaillé et une sélection de prestataires de confiance.</p>
+      </div>
+      <div class="step">
+        <span class="n">03</span>
+        <h3>Coordination</h3>
+        <p>Suivi des réservations, des essais traiteur, du rétroplanning et de la logistique jusqu'aux derniers détails.</p>
+      </div>
+      <div class="step">
+        <span class="n">04</span>
+        <h3>Le grand jour</h3>
+        <p>Notre équipe est présente sur place pour orchestrer chaque instant, afin que vous n'ayez qu'à profiter de la fête.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Ils nous ont fait confiance</span>
+      <h2>Des histoires, racontées avec soin.</h2>
+    </div>
+    <div class="testi-grid reveal">
+      <div class="testi">
+        <p class="quote">« Onini Events a su marier nos envies et notre réception parisienne sans aucune fausse note, du premier rendez-vous au dernier détail. »</p>
+        <div class="who">Sandrine & Paul — Mariage, Boulogne-Billancourt</div>
+      </div>
+      <div class="testi">
+        <p class="quote">« Le traiteur a fait l'unanimité : nos invités français découvraient de nouvelles saveurs, nos familles retrouvaient le goût du pays. »</p>
+        <div class="who">Junior N. — Anniversaire d'entreprise, Paris</div>
+      </div>
+      <div class="testi">
+        <p class="quote">« Une équipe organisée, réactive sur WhatsApp du premier jour au dernier, et un jour J sans stress. »</p>
+        <div class="who">Aïcha & Thomas — Mariage, Créteil</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="wrap contact-grid reveal">
+    <div>
+      <span class="eyebrow" style="color:var(--gold);">Contact</span>
+      <h2>Racontons votre événement.</h2>
+      <p class="lead">Basés à Paris, nous intervenons dans toute la France ainsi que dans les pays voisins. Le plus simple pour démarrer : écrivez-nous sur WhatsApp, nous répondons rapidement.</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-line">
+        <span class="ic">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9932A" stroke-width="1.6"><path d="M20.5 17.5c0 .3-.07.6-.2.9-.14.3-.32.6-.55.85-.4.44-.85.76-1.36.96-.5.2-1.05.3-1.63.3-.86 0-1.78-.2-2.75-.62a15.6 15.6 0 0 1-2.9-1.66 21.4 21.4 0 0 1-2.73-2.32A21.5 21.5 0 0 1 6.1 13.2a15.9 15.9 0 0 1-1.64-2.87C4.05 9.34 3.85 8.42 3.85 7.55c0-.56.1-1.1.3-1.6.2-.5.51-.96.94-1.36.5-.5 1.06-.74 1.65-.74.22 0 .44.05.65.14.2.1.4.24.55.45l1.9 2.68c.15.2.26.4.33.58.08.18.12.35.12.5 0 .2-.06.4-.18.6-.11.2-.27.4-.47.6l-.64.66c-.1.1-.14.2-.14.35 0 .07 0 .13.03.2.05.1.09.18.14.25.15.28.42.65.8 1.1.4.44.8.9 1.25 1.34.46.45.9.85 1.35 1.2.5.4.87.65 1.16.8.05.03.1.05.15.08.07.03.13.04.2.04.15 0 .26-.05.36-.15l.63-.63c.2-.2.4-.36.6-.46.2-.12.39-.18.6-.18.16 0 .33.04.51.12.18.08.37.19.58.34l2.72 1.93c.22.15.37.33.46.53.08.2.13.4.13.63Z"/></svg>
+        </span>
+        <div>
+          <b>WhatsApp</b>
+          <a href="https://wa.me/33745432685" target="_blank" rel="noopener">+33 7 45 43 26 85</a>
+        </div>
+      </div>
+      <div class="contact-line">
+        <span class="ic">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9932A" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        </span>
+        <div>
+          <b>Site web</b>
+          <a href="https://www.onini-events.fr" target="_blank" rel="noopener">www.onini-events.fr</a>
+        </div>
+      </div>
+      <div class="contact-line">
+        <span class="ic">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9932A" stroke-width="1.6"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+        </span>
+        <div>
+          <b>Zone d'intervention</b>
+          <span class="val">France & pays voisins</span>
+        </div>
+      </div>
+      <a class="btn btn-solid" href="https://wa.me/33745432685" target="_blank" rel="noopener">Démarrer la conversation</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <a href="#top" class="brand">
+        <svg viewBox="0 0 200 200" width="34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="100" cy="100" r="96" fill="#FBF6EE" stroke="#C9932A" stroke-width="2"/>
+          <circle cx="80" cy="82" r="34" fill="none" stroke="#B5502E" stroke-width="9"/>
+          <circle cx="120" cy="82" r="34" fill="none" stroke="#C9932A" stroke-width="9"/>
+        </svg>
+        <span class="brand-text">Onini Events</span>
+      </a>
+      <nav class="links">
+        <a href="#about">L'agence</a>
+        <a href="#services">Services</a>
+        <a href="#process">Déroulé</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="bottom">
+      <span>© 2026 Onini Events — Paris, France</span>
+      <span>www.onini-events.fr · +33 7 45 43 26 85</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/33745432685" target="_blank" rel="noopener" aria-label="Contacter sur WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FBF6EE" stroke-width="1.7"><path d="M20.5 17.5c0 .3-.07.6-.2.9-.14.3-.32.6-.55.85-.4.44-.85.76-1.36.96-.5.2-1.05.3-1.63.3-.86 0-1.78-.2-2.75-.62a15.6 15.6 0 0 1-2.9-1.66 21.4 21.4 0 0 1-2.73-2.32A21.5 21.5 0 0 1 6.1 13.2a15.9 15.9 0 0 1-1.64-2.87C4.05 9.34 3.85 8.42 3.85 7.55c0-.56.1-1.1.3-1.6.2-.5.51-.96.94-1.36.5-.5 1.06-.74 1.65-.74.22 0 .44.05.65.14.2.1.4.24.55.45l1.9 2.68c.15.2.26.4.33.58.08.18.12.35.12.5 0 .2-.06.4-.18.6-.11.2-.27.4-.47.6l-.64.66c-.1.1-.14.2-.14.35 0 .07 0 .13.03.2.05.1.09.18.14.25.15.28.42.65.8 1.1.4.44.8.9 1.25 1.34.46.45.9.85 1.35 1.2.5.4.87.65 1.16.8.05.03.1.05.15.08.07.03.13.04.2.04.15 0 .26-.05.36-.15l.63-.63c.2-.2.4-.36.6-.46.2-.12.39-.18.6-.18.16 0 .33.04.51.12.18.08.37.19.58.34l2.72 1.93c.22.15.37.33.46.53.08.2.13.4.13.63Z"/></svg>
+</a>
+
+<script>
+  // Mobile menu
+  const burger = document.getElementById('burger');
+  const navLinks = document.querySelector('nav.links');
+  burger.addEventListener('click', () => {
+    const open = navLinks.style.display === 'flex';
+    navLinks.style.display = open ? 'none' : 'flex';
+    navLinks.style.cssText = open ? '' : 'display:flex; position:fixed; top:73px; left:0; right:0; background:#FBF6EE; flex-direction:column; padding:24px 32px; gap:20px; border-bottom:1px solid rgba(36,28,21,.12);';
+  });
+  document.querySelectorAll('nav.links a').forEach(a=>{
+    a.addEventListener('click', ()=>{ if(window.innerWidth<=900){ navLinks.style.display='none'; } });
+  });
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Weave divider generator (repeats the lozenge motif across hero width)
+  const weaveRow = document.getElementById('weaveRow');
+  if (weaveRow) {
+    const colors = ['#C9932A','#B5502E','#1F3D2B','#B5502E','#C9932A'];
+    let svg = '<svg viewBox="0 0 900 22" xmlns="http://www.w3.org/2000/svg">';
+    for (let i=0;i<38;i++){
+      const x = i*24;
+      const c = colors[i % colors.length];
+      svg += `<polygon points="${x},11 ${x+9},2 ${x+18},11 ${x+9},20" fill="${c}" opacity="0.9"/>`;
+    }
+    svg += '</svg>';
+    weaveRow.innerHTML = svg;
+  }
+</script>
+
+</body>
+</html>
